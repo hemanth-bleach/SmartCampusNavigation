@@ -1,0 +1,10 @@
+AUD,CNT,120.0,false
+AUD,PKG,90.0,false
+AUD,HST,110.0,false
+CSE,LIB,100.0,false
+CNT,LIB,60.0,false
+CNT,CSE,200.0,false
+CNT,HST,40.0,false
+ADM,LIB,70.0,false
+ADM,PKG,50.0,false
+ADM,HST,80.0,false

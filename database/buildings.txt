@@ -1,0 +1,7 @@
+AUD,Auditorium,780,280
+LIB,Library,150,150
+CSE,Computer Science,150,420
+HST,Hostel,580,150
+CNT,Canteen,580,420
+ADM,Admin Block,350,150
+PKG,Parking,350,420
