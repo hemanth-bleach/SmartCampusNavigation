@@ -1,0 +1,52 @@
+name: Build and Release Smart Campus Navigation
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Java JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    - name: Compile Java Code
+      run: |
+        mkdir -p bin
+        javac -d bin -sourcepath src src/com/campus/main/Main.java
+
+    - name: Package Executable JAR
+      run: |
+        jar cvfm SmartCampusNavigation.jar MANIFEST.MF -C bin .
+
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: SmartCampusNavigation-JAR
+        path: SmartCampusNavigation.jar
+
+    - name: Release Latest Build
+      uses: softprops/action-gh-release@v2
+      if: github.ref == 'refs/heads/main'
+      with:
+        tag_name: latest
+        name: "Smart Campus Navigation - Latest Build"
+        body: |
+          ### Automated Desktop Build
+          - Download `SmartCampusNavigation.jar` below to run on your computer.
+          - Requires Java 21 (or compatible JRE).
+        files: SmartCampusNavigation.jar
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
